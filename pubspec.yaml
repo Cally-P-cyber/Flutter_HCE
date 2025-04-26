@@ -1,0 +1,26 @@
+name: nfc_emulator
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: ^3.6.0
+
+dependencies:
+  cloud_firestore: ^5.6.6
+  firebase_auth: ^5.5.2
+  flutter:
+    sdk: flutter
+  flutter_nfc_hce: ^0.1.8
+  flutter_nfc_kit: ^3.6.0
+  ndef: ^0.3.4
+  nfc_host_card_emulation: ^1.1.0
+  shared_preferences: ^2.5.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true

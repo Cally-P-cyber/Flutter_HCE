@@ -1,0 +1,42 @@
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+rootProject.buildDir = "../build"
+
+subprojects { project ->
+    // Library modules (com.android.library)
+    project.plugins.withId("com.android.library") {
+        // 'android' here is a LibraryExtension instance
+        project.extensions.findByName("android")?.with { libExt ->
+            // Only set if missing
+            if (libExt.hasProperty("namespace") && (libExt.namespace == null || libExt.namespace.trim().isEmpty())) {
+                libExt.namespace = project.group.toString()
+            }
+        }
+    }
+
+    // App modules (com.android.application)
+    project.plugins.withId("com.android.application") {
+        // 'android' here is an AppExtension instance
+        project.extensions.findByName("android")?.with { appExt ->
+            if (appExt.hasProperty("namespace") && (appExt.namespace == null || appExt.namespace.trim().isEmpty())) {
+                appExt.namespace = project.group.toString()
+            }
+        }
+    }
+}
+
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+subprojects {
+    project.evaluationDependsOn(":app")
+}
+
+tasks.register("clean", Delete) {
+    delete rootProject.buildDir
+}
